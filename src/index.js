@@ -7,9 +7,12 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import Footer from './componant/footer/footer';
 import Signin from "./pages/Sign-in";
 import User from "./pages/User";
+import { Provider } from 'react-redux';
+import store from './utils/store';
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+  <Provider store={store}>
+    <React.StrictMode>
       <BrowserRouter>
           <Header/> 
           <Routes>
@@ -19,5 +22,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           </Routes>
           <Footer/> 
       </BrowserRouter>     
-  </React.StrictMode>
+    </React.StrictMode>
+  </Provider>
+
 );
