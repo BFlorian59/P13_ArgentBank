@@ -1,30 +1,18 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { fetchOrUpdateUser } from '../../features/api/user'
 
 function Form() {
 
     const dispatch = useDispatch()
-    const [userEmail, setUserEmail] = useState('')
-    const [userPassword, setUserPassword] = useState('')
 
-    async function getProfil(credentials) {
-          
-        const fetchPayload = {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(credentials)
-          }
+    useEffect(() =>{
         
-          const response = await fetch('http://localhost:3001/api/v1/user/login', fetchPayload)
-          const data = await response.json()
+        dispatch(fetchOrUpdateUser())
+    },[dispatch])
         
-          console.log(data)
-          return data
-        }
-    getProfil()
+    
     return(
         <section className="sign-in-content">
             <i className="fa fa-user-circle sign-in-icon"></i>
