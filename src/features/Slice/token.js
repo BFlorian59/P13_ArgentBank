@@ -9,13 +9,13 @@ const initialState = {
     token:null,
   }
 
-const {action, reducer} = createSlice({
+const {actions, reducer} = createSlice({
     name: 'TokenUser',
     initialState,
     reducers:{
-        userFetching:{
-            prepare: (token) => ({
-                payload: {token},
+        tokenFetching:{
+            prepare: (userLogin) => ({
+                payload: {userLogin},
             }),
             reducer: (draft, action ) => {
                 if (draft.statusToken === 'void') {
@@ -35,9 +35,9 @@ const {action, reducer} = createSlice({
                 return
             }
         },
-        userResolved:{
-            prepare: (token, data) => ({
-                payload: {token, data},
+        tokenResolved:{
+            prepare: (userLogin, data) => ({
+                payload: {userLogin, data},
             }),
             reducer: (draft, action ) => {
                 if (draft.statusToken === 'pending' || draft.statusToken === 'uptading') {
@@ -48,9 +48,9 @@ const {action, reducer} = createSlice({
                 return
             }
         },
-        userRejected:{
-            prepare: (token, error) => ({
-                payload: {token, error},
+        tokenRejected:{
+            prepare: (userLogin, error) => ({
+                payload: {userLogin, error},
             }),
             reducer: (draft, action ) => {
                 if (draft.statusToken === 'pending' || draft.statusToken === 'uptading') {
@@ -64,4 +64,5 @@ const {action, reducer} = createSlice({
         },   
     }
 })
+export {actions}
 export default reducer

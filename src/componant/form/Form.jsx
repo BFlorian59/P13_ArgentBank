@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { fetchOrUpdateUser } from '../../features/api/user'
+import { fetchUser } from '../../features/api/user'
 
 function Form() {
 
@@ -9,7 +9,7 @@ function Form() {
 
     useEffect(() =>{
         
-        dispatch(fetchOrUpdateUser())
+        dispatch(fetchUser())
     },[dispatch])
         
     
