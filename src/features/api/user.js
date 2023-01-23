@@ -8,19 +8,20 @@ export function fetchUser(token){
             return
         }
         
-        dispatch(actions.userFetching(token))
+        await dispatch(actions.userFetching(token))
+        console.log(token)
 
-        // const Bearer_Token = {
-        //     method: 'post',
-        //     headers: {
-        //         Accept: 'application/json',
-        //         'Content-Type': 'application/json',
-        //         Authentication: 'Bearer Token' + token
-        //     }            
-        // }
+        const Bearer_Token = {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authentication: 'Bearer Token' + token
+            }            
+        }
 
         try {
-            const response = await fetch('http://localhost:3001/api/v1/user/profile')
+            const response = await fetch('http://localhost:3001/api/v1/user/profile', Bearer_Token)
             
             const data = await response.json()
             console.log(data)

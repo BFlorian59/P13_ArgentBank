@@ -2,15 +2,20 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchUser } from '../../features/api/user'
+import { fetchToken } from "../../features/api/token";
 
 function Form() {
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
 
     const dispatch = useDispatch()
+    const userLogin = { email, password }
+    const token = dispatch(fetchToken(userLogin))
 
-    useEffect(() =>{
-        
-        dispatch(fetchUser())
-    },[dispatch])
+
+    //useEffect    
+    dispatch(fetchUser(token))
+
         
     
     return(
