@@ -8,15 +8,12 @@ export function fetchUser(token){
             return
         }
         
-        await dispatch(actions.userFetching(token))
+        dispatch(actions.userFetching(token))
         console.log(token)
-
         const Bearer_Token = {
             method: 'POST',
             headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-                Authentication: 'Bearer Token' + token
+                Authorization: `Bearer ${token}`,
             }            
         }
 
@@ -25,7 +22,7 @@ export function fetchUser(token){
             
             const data = await response.json()
             console.log(data)
-            dispatch(actions.userResolved(token, data))
+            dispatch(actions.userResolved(token, data.body))
         } catch (error) {
             dispatch(actions.userRejected(token, error))
         }

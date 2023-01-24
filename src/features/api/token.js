@@ -17,10 +17,7 @@ export function fetchToken(userLogin){
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
             },
-            body:JSON.stringify({
-                email: "tony@stark.com",
-                password: "password123"
-            })            
+            body: JSON.stringify(userLogin),           
         }
 
         try {
@@ -28,7 +25,8 @@ export function fetchToken(userLogin){
             
             const data = await response.json()
             console.log(data)
-            dispatch(actions.tokenResolved(userLogin, data))
+            dispatch(actions.tokenResolved(userLogin, data.body.token))
+            return data.body.token
         } catch (error) {
             dispatch(actions.tokenRejected(userLogin, error))
         }

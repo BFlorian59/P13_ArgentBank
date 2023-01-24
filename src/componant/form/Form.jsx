@@ -3,20 +3,30 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchUser } from '../../features/api/user'
 import { fetchToken } from "../../features/api/token";
+import { useNavigate } from "react-router-dom";
 
 function Form() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
     const dispatch = useDispatch()
-    const userLogin = { email, password }
-    const token = dispatch(fetchToken(userLogin))
+    const navigate = useNavigate();
 
 
-    //useEffect    
-    dispatch(fetchUser(token))
+    async function Login(e) {
 
-        
+        e.preventDefault()
+        const userLogin = { email, password }
+        const token = await dispatch(fetchToken(userLogin))
+        dispatch(fetchUser(token))
+        navigate('/User');
+
+        if (!token) {
+            navigate('/login')
+        }
+      }  
+      
+
     
     return(
         <section className="sign-in-content">
@@ -26,17 +36,17 @@ function Form() {
                 <div>
                     <div className="input-wrapper">
                         <label htmlFor="username">Username</label>
-                        <input type="text" id="username" />
+                        <input type="text" id="username" onChange={(user) => setEmail(user.target.value)} />
                     </div>
                     <div className="input-wrapper">
                         <label htmlFor="password">Password</label>
-                        <input type="password" id="password" />
+                        <input type="password" id="password" onChange={(user) => setPassword(user.target.value)} />
                     </div>
                     <div className="input-remember">
                         <input type="checkbox" id="remember-me" />
                         <label htmlFor="remember-me">Remember me</label>
                     </div>
-                    <Link to={'/User'} className="sign-in-button">Sign In</Link>
+                    <button onClick={(e)=>Login(e)} className="sign-in-button">Sign In</button>
                 </div>
             </form>
         </section>
