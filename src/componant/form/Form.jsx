@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchUser } from '../../features/api/user'
 import { fetchToken } from "../../features/api/token";
@@ -24,7 +23,7 @@ function Form() {
         if (!token) {
             navigate('/login')
         }
-      }  
+    }  
       
 
     
