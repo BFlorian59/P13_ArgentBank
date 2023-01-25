@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { fetchUser } from '../../features/api/user'
-import { fetchToken } from "../../features/api/token";
+import { fetchUser } from '../../features/service/user'
+import { fetchToken } from "../../features/service/token";
 import { useNavigate } from "react-router-dom";
 
 function Form() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [IsLoggedin, setIsLoggedin] = useState(false);
 
     const dispatch = useDispatch()
     const navigate = useNavigate();
@@ -20,6 +21,9 @@ function Form() {
         dispatch(fetchUser(token))
         navigate('/User');
 
+        localStorage.setItem('token-info', JSON.stringify(userLogin));
+        setIsLoggedin(true);
+
         if (!token) {
             navigate('/login')
         }
@@ -27,7 +31,7 @@ function Form() {
       
 
     
-    return(
+    return !IsLoggedin ?(
         <section className="sign-in-content">
             <i className="fa fa-user-circle sign-in-icon"></i>
             <h1>Sign In</h1>
@@ -50,6 +54,10 @@ function Form() {
             </form>
         </section>
         
+    ):(
+        <div>
+            Error
+        </div>
     )
 }
 
