@@ -21,7 +21,7 @@ function Form() {
         dispatch(fetchUser(token))
         navigate('/User');
 
-        localStorage.setItem('token-info', JSON.stringify(userLogin));
+        window.sessionStorage.setItem('token-info', token)
         setIsLoggedin(true);
 
         if (!token) {
