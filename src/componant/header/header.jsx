@@ -1,5 +1,5 @@
 import ArgentBankLogo from "../../assets/argentBankLogo.png";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { selectUser } from '../../utils/selector'
 import { useSelector, useDispatch } from "react-redux"
 import { signOut } from '../../features/signout'
@@ -8,16 +8,12 @@ import '../../utils/styles/header.css';
 function Header() {
     const user = useSelector(selectUser)
     const dispatch = useDispatch()
-    //const storages = windows.sessionStorage.getItem('token-info') 
-    const storages = window.sessionStorage.getItem('token-info')
-    console.log(storages)   
+    const storages = sessionStorage.getItem('token-info')
 
     function logout() {
-        return (
-            sessionStorage.clear(),
-            localStorage.clear(),
-            console.log(storages)   
-        )
+        sessionStorage.clear()
+        localStorage.clear()
+        dispatch(signOut())
     }
     
     
@@ -36,7 +32,7 @@ function Header() {
                     <i className="fa fa-user-circle"></i>
                     {user.data.data.firstName}
                 </Link>
-                <button onClick={logout} className="main-nav-item">Sign out</button>
+                <Link to={'/'} onClick={logout} className="main-nav-item">Sign out</Link>
             </div>
         </nav>
     :

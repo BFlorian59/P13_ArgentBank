@@ -1,12 +1,14 @@
+import Userinfo from "../componant/user/Userinfo";
+import { selectUser } from '../utils/selector'
+import { useSelector} from "react-redux"
 import "../utils/styles/user.css";
 
 function User() {
+    const user = useSelector(selectUser)
+    console.log(user.data.data.firstName)
     return(
         <main className="main bg-dark">
-      <div className="header">
-        <h1>Welcome back<br />Tony Jarvis!</h1>
-        <button className="edit-button">Edit Name</button>
-      </div>
+          
       <h2 className="sr-only">Accounts</h2>
       <section className="account">
         <div className="account-content-wrapper">

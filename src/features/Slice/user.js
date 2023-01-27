@@ -9,7 +9,7 @@ const initialState = {
     token:null,
   }
 
-const {actions, reducer} = createSlice({
+const { actions , reducer} = createSlice({
     name: 'User',
     initialState,
     reducers:{
@@ -61,7 +61,10 @@ const {actions, reducer} = createSlice({
                 }
                 return
             }
-        },   
+        },
+        reset: {
+            reducer: () => initialState
+        },
     }
 })
 export {actions}

@@ -21,11 +21,12 @@ function Form() {
         dispatch(fetchUser(token))
         navigate('/User');
 
-        window.sessionStorage.setItem('token-info', token)
+        sessionStorage.setItem('token-info', token)
+        localStorage.setItem('user-info', userLogin)
         setIsLoggedin(true);
 
         if (!token) {
-            navigate('/login')
+            navigate('/')
         }
     }  
       
