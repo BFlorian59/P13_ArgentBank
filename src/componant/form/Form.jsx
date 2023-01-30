@@ -22,7 +22,6 @@ function Form() {
         navigate('/User');
 
         sessionStorage.setItem('user-info', userLogin)
-        setIsLoggedin(true);
 
         if (!token) {
             navigate('/')

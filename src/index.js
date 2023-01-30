@@ -9,6 +9,7 @@ import Signin from "./pages/Sign-in";
 import User from "./pages/User";
 import { Provider } from 'react-redux';
 import store from './utils/store';
+import PrivateRoutes from "./utils/PrivateRoutes";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
@@ -18,7 +19,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/login' element={<Signin />} />
-            <Route path='/User' element={<User />} />
+            <Route element={<PrivateRoutes/>}>
+              <Route path='/User' element={<User />} />
+            </Route>
           </Routes>
           <Footer/> 
       </BrowserRouter>     
