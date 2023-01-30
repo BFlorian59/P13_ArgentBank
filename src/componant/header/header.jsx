@@ -8,11 +8,10 @@ import '../../utils/styles/header.css';
 function Header() {
     const user = useSelector(selectUser)
     const dispatch = useDispatch()
-    const storages = sessionStorage.getItem('token-info')
+    const storages = sessionStorage.getItem('user-info')
 
     function logout() {
         sessionStorage.clear()
-        localStorage.clear()
         dispatch(signOut())
     }
     
