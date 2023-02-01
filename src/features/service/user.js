@@ -28,3 +28,24 @@ export function fetchUser(token){
         }
     }
 }
+
+export function fetchUserUpdate(token, firstName, lastName){
+    return async (dispatch) => {
+    
+        const Bearer_Token = {
+            method: 'PUT',
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({firstName, lastName}),            
+        }
+
+        try {
+            const response = await fetch('http://localhost:3001/api/v1/user/profile', Bearer_Token)
+            if(response.status === 400) { console.log('invalid fields') }
+            dispatch(actions.userUpdate(token, firstName, lastName))
+        } catch (error) {
+            dispatch(actions.userRejected(token, error))
+        }
+    }
+}

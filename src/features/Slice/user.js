@@ -70,8 +70,8 @@ const { actions , reducer} = createSlice({
                 payload: {token, firstName, lastName },
             }),
             reducer: (draft, action) =>{
-                draft.data.lastName = action.payload.lastName
-                draft.data.lastName = action.payload.lastName
+                draft.data.data.firstName = action.payload.firstName
+                draft.data.data.lastName = action.payload.lastName
                 return
             }
         }

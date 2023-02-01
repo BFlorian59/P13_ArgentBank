@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 function Form() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [IsLoggedin, setIsLoggedin] = useState(false);
+   
 
     const dispatch = useDispatch()
     const navigate = useNavigate();
@@ -22,6 +22,7 @@ function Form() {
         navigate('/User');
 
         sessionStorage.setItem('user-info', userLogin)
+        localStorage.setItem('token-info', token)
 
         if (!token) {
             navigate('/')
@@ -30,11 +31,11 @@ function Form() {
       
 
     
-    return !IsLoggedin ?(
+    return(
         <section className="sign-in-content">
             <i className="fa fa-user-circle sign-in-icon"></i>
             <h1>Sign In</h1>
-            <form>
+            <form >
                 <div>
                     <div className="input-wrapper">
                         <label htmlFor="username">Username</label>
@@ -53,10 +54,6 @@ function Form() {
             </form>
         </section>
         
-    ):(
-        <div>
-            Error
-        </div>
     )
 }
 
