@@ -42,7 +42,9 @@ export function fetchUserUpdate(token, firstName, lastName){
 
         try {
             const response = await fetch('http://localhost:3001/api/v1/user/profile', Bearer_Token)
-            if(response.status === 400) { console.log('invalid fields') }
+            
+            const data = await response.json()
+            console.log(data)
             dispatch(actions.userUpdate(token, firstName, lastName))
         } catch (error) {
             dispatch(actions.userRejected(token, error))
