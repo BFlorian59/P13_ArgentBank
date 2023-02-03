@@ -1,8 +1,9 @@
 import ArgentBankLogo from "../../assets/argentBankLogo.png";
 import { Link} from "react-router-dom";
 import { selectUser } from '../../utils/selector'
-import { useSelector, useDispatch } from "react-redux"
-import { signOut } from '../../features/signout'
+import { useSelector } from "react-redux/es/hooks/useSelector"
+import { useDispatch } from "react-redux"
+import { test } from '../../features/test'
 import '../../utils/styles/header.css';
 
 function Header() {
@@ -11,12 +12,14 @@ function Header() {
     const storages = sessionStorage.getItem('user-info')
 
     function logout() {
-        sessionStorage.clear()
-        dispatch(signOut())
+        console.log(user.data)
+        console.log(storages)
+        dispatch()
+       
     }
+    console.log(user)
     
-    
-    return (storages && user.data ?
+    return storages && user.data ? (
         <nav className="main-nav">
             <Link to={'/'} className="main-nav-logo">
                 <img
@@ -34,7 +37,7 @@ function Header() {
                 <Link to={'/'} onClick={logout} className="main-nav-item">Sign out</Link>
             </div>
         </nav>
-    :
+    ):(
         <nav className="main-nav">
             <Link to={'/'} className="main-nav-logo">
                 <img
