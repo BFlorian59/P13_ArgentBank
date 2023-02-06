@@ -1,9 +1,9 @@
 import ArgentBankLogo from "../../assets/argentBankLogo.png";
 import { Link} from "react-router-dom";
 import { selectUser } from '../../utils/selector'
-import { useSelector } from "react-redux/es/hooks/useSelector"
-import { useDispatch } from "react-redux"
-import { test } from '../../features/test'
+import { useDispatch, useSelector } from "react-redux"
+import {useEffect} from "react"
+import  {signOut} from "../../features/signout"
 import '../../utils/styles/header.css';
 
 function Header() {
@@ -13,11 +13,8 @@ function Header() {
 
     function logout() {
         console.log(user.data)
-        console.log(storages)
-        dispatch()
-       
+        dispatch(signOut())
     }
-    console.log(user)
     
     return storages && user.data ? (
         <nav className="main-nav">

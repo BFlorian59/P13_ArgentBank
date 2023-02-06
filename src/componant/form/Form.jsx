@@ -21,7 +21,7 @@ function Form() {
         dispatch(fetchUser(token))
         navigate('/User');
 
-        sessionStorage.setItem('user-info', userLogin)
+        sessionStorage.setItem('user-info', JSON.stringify(userLogin))
         localStorage.setItem('token-info', token)
 
         if (!token) {

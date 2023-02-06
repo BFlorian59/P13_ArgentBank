@@ -62,9 +62,9 @@ const { actions , reducer} = createSlice({
                 return
             }
         },
-        // reset: {
-        //     reducer: () => initialState
-        // },
+        reset: {
+            reducer: () => initialState
+        },
         userUpdate:{
             prepare: (token, firstName, lastName)=>({
                 payload: {token, firstName, lastName },
