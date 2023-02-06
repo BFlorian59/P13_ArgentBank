@@ -2,7 +2,6 @@ import ArgentBankLogo from "../../assets/argentBankLogo.png";
 import { Link} from "react-router-dom";
 import { selectUser } from '../../utils/selector'
 import { useDispatch, useSelector } from "react-redux"
-import {useEffect} from "react"
 import  {signOut} from "../../features/signout"
 import '../../utils/styles/header.css';
 

@@ -35,11 +35,12 @@ export function fetchUserUpdate(token, firstName, lastName){
         const Bearer_Token = {
             method: 'PUT',
             headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}`,
             },
             body: JSON.stringify({firstName, lastName}),            
         }
-
         try {
             const response = await fetch('http://localhost:3001/api/v1/user/profile', Bearer_Token)
             
