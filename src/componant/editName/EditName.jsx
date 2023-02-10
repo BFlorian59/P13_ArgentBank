@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux"
 import { useState } from "react"
 import Userinfo from "../user/Userinfo";
 import {fetchUserUpdate} from "../../features/service/user";
+import '../../utils/styles/editname.css';
 
 
 function EditName() {
@@ -18,7 +19,7 @@ function EditName() {
         e.preventDefault()
         const token = (user.token || localStorage.getItem('token-info'))
         const edit = dispatch(fetchUserUpdate(token, firstName, lastName))
-        console.log(user.data)
+
 
         if (!edit) {
             return

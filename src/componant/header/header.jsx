@@ -11,7 +11,7 @@ function Header() {
     const storages = sessionStorage.getItem('user-info')
 
     function logout() {
-        console.log(user.data)
+
         dispatch(signOut())
     }
     

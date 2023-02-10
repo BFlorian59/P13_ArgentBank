@@ -122,7 +122,7 @@ paths:
       tags:
         - Transactions Module
       summary: User Transactions
-      description: API for checking user transactions
+      description: API for checking user transactions (route to get the user's transaction account)
       parameters:
         - in: header
           name: Authorization
@@ -156,7 +156,7 @@ paths:
       tags:
         - Transactions Module 
       summary: Detail Transaction
-      description: Api transaction details
+      description: Api transaction details (route to get user transaction details)
       parameters:
         - in: header
           name: Authorization
@@ -191,7 +191,7 @@ paths:
       tags:
         - Transactions Module 
       summary: Detail Transaction
-      description: Api transaction details
+      description: Api transaction details (route to post user transaction details)
       parameters:
         - in: header
           name: Authorization
@@ -233,7 +233,7 @@ paths:
       tags:
         - Transactions Module 
       summary: Detail Transaction
-      description: Api transaction details
+      description: Api transaction details (route to put user transaction details)
       parameters:
         - in: header
           name: Authorization
@@ -275,7 +275,7 @@ paths:
       tags:
         - Transactions Module 
       summary: Detail Transaction
-      description: Api transaction details
+      description: Api transaction details (route to delete user transaction details)
       parameters:
         - in: header
           name: Authorization

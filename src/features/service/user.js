@@ -21,7 +21,10 @@ export function fetchUser(token){
             const response = await fetch('http://localhost:3001/api/v1/user/profile', Bearer_Token)
             
             const data = await response.json()
-            console.log(data)
+
+            if(response.status === 400) { console.log('invalid fields') }
+            if(response.status === 401) { dispatch(actions.reset()) }
+            
             dispatch(actions.userResolved(token, data.body))
         } catch (error) {
             dispatch(actions.userRejected(token, error))
