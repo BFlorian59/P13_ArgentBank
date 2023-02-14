@@ -3,10 +3,12 @@ import { useDispatch } from "react-redux";
 import { fetchUser } from '../../features/service/user'
 import { fetchToken } from "../../features/service/token";
 import { useNavigate } from "react-router-dom";
+import { setRemember } from "../../features/remember";
 
 function Form() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [invalid, setInvalid] = useState(false)
    
 
     const dispatch = useDispatch()
@@ -16,17 +18,20 @@ function Form() {
     async function Login(e) {
 
         e.preventDefault()
+        const remember = document.getElementById('remember-me').checked
         const userLogin = { email, password }
         const token = await dispatch(fetchToken(userLogin))
-        dispatch(fetchUser(token))
-        navigate('/User');
-
-        sessionStorage.setItem('user-info', JSON.stringify(userLogin))
-        localStorage.setItem('token-info', token)
+               
 
         if (!token) {
+            setInvalid(true)
             navigate('/')
         }
+        setInvalid(false)
+        dispatch(fetchUser(token))
+
+        remember ? setRemember(token, remember) : sessionStorage.setItem('token-info', token)
+        navigate('/User');
     }  
       
 
@@ -52,6 +57,7 @@ function Form() {
                     <button onClick={(e)=>Login(e)} className="sign-in-button">Sign In</button>
                 </div>
             </form>
+            {invalid ? <div className='messageConnexionError'>invalid credentials</div> : null}
         </section>
         
     )

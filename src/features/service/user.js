@@ -9,7 +9,7 @@ export function fetchUser(token){
         }
         
         dispatch(actions.userFetching(token))
-        console.log(token)
+
         const Bearer_Token = {
             method: 'POST',
             headers: {

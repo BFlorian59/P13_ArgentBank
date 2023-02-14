@@ -1,11 +1,37 @@
 import Translation from "../componant/translations/Translation"
 import { selectUser } from '../utils/selector'
-import { useSelector} from "react-redux"
+import { useSelector, useDispatch} from "react-redux"
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { fetchUser } from "../features/service/user";
+import { signOut } from "../features/signout";
 import "../utils/styles/user.css";
 import EditName from "../componant/editName/EditName";
 
 function User() {
     const user = useSelector(selectUser)
+    const token = (sessionStorage.getItem('token-info')|| localStorage.getItem('token-info'))
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    useEffect(() => {
+      if (!user.data) {
+        if ((token)) {
+          dispatch(fetchUser(token))
+          navigate('/User')
+        }
+        else {
+          localStorage.clear()
+          sessionStorage.clear()
+          dispatch(signOut())
+          navigate('/login')
+        }
+      }
+    }, [dispatch, navigate, token, user])
+
+  if (!user.data) {
+    return null
+  }
+
     return user.data ?(
     <main className="main bg-dark">
       <EditName />
