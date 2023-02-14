@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux"
 import  {signOut} from "../../features/signout"
 import { fetchUser } from "../../features/service/user";
 import '../../utils/styles/header.css';
+import { useEffect } from "react";
 
 function Header() {
     const user = useSelector(selectUser)
@@ -18,14 +19,13 @@ function Header() {
         dispatch(signOut())
     }
 
-    function remember() {
+    useEffect(() => {
         if (Remembered) {
             dispatch(fetchUser(token))
             navigate('/User')
-        } else {
-            navigate('/login')
-        }
-    }
+        }        
+    }, [Remembered, dispatch, navigate, token])
+        
     
     return token && user.data ? (
         <nav className="main-nav">
@@ -55,10 +55,10 @@ function Header() {
                 />
                 <h1 className="sr-only">Argent Bank</h1>
             </Link>
-            <div onClick={remember} className="main-nav-item">
+            <Link to={'/login'} className="main-nav-item">
                 <i className="fa fa-user-circle"></i>
                 Sign In
-            </div>
+            </Link>
         </nav>
     )
 }
