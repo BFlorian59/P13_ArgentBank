@@ -115,24 +115,19 @@ paths:
           
  
   
-  /user/transactions/{UsertransactionsID}:
+  /user/accounts:
     get:
       security:
         - Bearer: []
       tags:
         - Transactions Module
-      summary: User Transactions
-      description: API for checking user transactions (route to get the user's transaction account)
+      summary: API User accounts
+      description: API for fetching a user accounts (route to fetch the user's accounts)
       parameters:
         - in: header
           name: Authorization
           description: Attach Bearer JTW token
           type: string
-          required: true
-        - name: UsertransactionsID
-          in: path
-          description: User's transactions
-          type: integer
           required: true
       produces:   
         - application/json
@@ -140,7 +135,7 @@ paths:
         '200':
           description: User's transactions 
           schema:
-            $ref: '#/definitions/Usertransactions'
+            $ref: '#/definitions/AccountUser'
         '400':
           description: Invalid Fields
         '500':
@@ -149,63 +144,97 @@ paths:
           
   
   
-  /user/transactions/{UsertransactionsID}/{TransactionID}:        
+  /user/account/{id}/transactions:        
     get:
       security:
         - Bearer: []
       tags:
         - Transactions Module 
-      summary: Detail Transaction
-      description: Api transaction details (route to get user transaction details)
+      summary: API User transactions
+      description: API retrieving all user transactions according to the chosen account
       parameters:
         - in: header
           name: Authorization
           description: Attach Bearer JTW token
           type: string
           required: true
-        - name: UsertransactionsID
+        - name: id
           in: path
-          description: User's transactions
+          description: User's account id
           type: integer
           required: true
-        - name: TransactionID
+          
+      produces:
+       - application/json
+      responses:
+        '200':
+          description: User transactions retrieved successully
+          schema:
+            $ref: '#/definitions/AllTransactions' 
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error   
+          
+          
+          
+  /user/account/{id}/transactions/{transactionId}:  
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module 
+      summary: API User transactions
+      description: API fetching a single user transaction
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JTW token
+          type: string
+          required: true
+        - name: id
           in: path
-          description: User's transaction details
+          description: User's account id
+          type: integer
+          required: true
+        - name: transactionId
+          in: path
+          description: User's transactions id
           type: integer
           required: true
       produces:
        - application/json
       responses:
         '200':
-          description: transaction detail
+          description: User transaction retrieved successully
           schema:
-            $ref: '#/definitions/TransactionID' 
+            $ref: '#/definitions/Transaction' 
         '400':
           description: Invalid Fields
         '500':
-          description: Internal Server Error    
-   
-    post:
+          description: Internal Server Error      
+          
+    post:       
       security:
         - Bearer: []
       tags:
         - Transactions Module 
-      summary: Detail Transaction
-      description: Api transaction details (route to post user transaction details)
+      summary: API User transactions
+      description: API add a single user transaction
       parameters:
         - in: header
           name: Authorization
           description: Attach Bearer JTW token
           type: string
           required: true
-        - name: UsertransactionsID
+        - name: id
           in: path
-          description: User's transactions
+          description: User's account id
           type: integer
           required: true
-        - name: TransactionID
+        - name: transactionId
           in: path
-          description: User's transaction details
+          description: User's transactions id
           type: integer
           required: true
         - name: body
@@ -213,56 +242,56 @@ paths:
           description: new transaction detail
           required: true
           schema:
-            $ref: '#/definitions/TransactionInformation'
+            $ref: '#/definitions/Transaction'
       produces:
        - application/json
       responses:
         '200':
           description: Successful new details of the transaction
           schema:
-            $ref: '#/definitions/ApiResponseTransactionInformation' 
+            $ref: '#/definitions/ApiResponsePost' 
         '400':
           description: Invalid Fields
         '500':
-          description: Internal Server Error      
-          
-    
+          description: Internal Server Error       
+     
+     
     put:       
       security:
         - Bearer: []
       tags:
         - Transactions Module 
-      summary: Detail Transaction
-      description: Api transaction details (route to put user transaction details)
+      summary: API User transactions
+      description: API edit a single user transaction
       parameters:
         - in: header
           name: Authorization
           description: Attach Bearer JTW token
           type: string
           required: true
-        - name: UsertransactionsID
+        - name: id
           in: path
-          description: User's transactions
+          description: User's account id
           type: integer
           required: true
-        - name: TransactionID
+        - name: transactionId
           in: path
-          description: User's transaction details
+          description: User's transactions id
           type: integer
           required: true
         - name: body
           in: body
-          description: Update transaction detail
+          description: edit transaction detail
           required: true
           schema:
-            $ref: '#/definitions/TransactionInformation'
+            $ref: '#/definitions/Transaction'
       produces:
        - application/json
       responses:
         '200':
-          description: Successful transaction detail modification
+          description: Successful edit details of the transaction
           schema:
-            $ref: '#/definitions/ApiResponseTransactionInformation' 
+            $ref: '#/definitions/ApiResponsePut' 
         '400':
           description: Invalid Fields
         '500':
@@ -282,14 +311,14 @@ paths:
           description: Attach Bearer JTW token
           type: string
           required: true
-        - name: UsertransactionsID
+        - name: id
           in: path
-          description: User's transactions
+          description: User's account id
           type: integer
           required: true
-        - name: TransactionID
+        - name: transactionId
           in: path
-          description: User's transaction details
+          description: User's transactions id
           type: integer
           required: true
       produces:
@@ -361,36 +390,95 @@ definitions:
       lastName:
         type: string
         
-  Usertransactions:
+  AccountUser:
     type: object
     properties:
-      date:
-        type: string
-      description:
-        type: string
-      amout:
-        type: integer
-      balence:
-        type: integer
-  TransactionID:
+      accounts:
+        type: array
+        items:
+          type: object
+          properties:
+            Id:
+              type: number
+            Title:
+              type: string
+            Balance:
+              type: string
+            Description:
+              type: string
+  AllTransactions:
     type: object
     properties:
-      Transaction Type:
+      transactions:
+        type: array
+        items:
+          type: object
+          properties:
+            TransactionsId:
+              type: number
+            Date:
+              type: string
+            Description:
+              type: string
+            Amount:
+              type: number
+            Balance:
+              type: number
+            Type:
+              type: string
+            Category:
+              type: string
+            Notes:
+              type: string
+        
+  Transaction:
+    type: object
+    properties:
+      TransactionsId:
+        type: number
+      Date:
+        type: string
+      Description:
+        type: string
+      Amount:
+        type: number
+      Balance:
+        type: number
+      Type:
         type: string
       Category:
         type: string
       Notes:
         type: string
         
-  TransactionInformation:
+  ApiResponsePost:
     type: object
     properties:
-      Category:
+      status:
+        type: integer
+      message:
         type: string
-      Notes:
-        type: string
-        
-  ApiResponseTransactionInformation:
+      body:
+        type: object
+        properties:
+          TransactionsId:
+            type: number
+          Date:
+            type: string
+          Description:
+            type: string
+          Amount:
+            type: number
+          Balance:
+            type: number
+          Type:
+            type: string
+          Category:
+            type: string
+          Notes:
+            type: string
+            
+  ApiResponsePut:
     type: object
     properties:
       status:
