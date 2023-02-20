@@ -176,7 +176,41 @@ paths:
         '500':
           description: Internal Server Error   
           
-          
+    post:       
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module 
+      summary: API User transactions
+      description: API add a single user transaction
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JTW token
+          type: string
+          required: true
+        - name: id
+          in: path
+          description: User's account id
+          type: integer
+          required: true
+        - name: body
+          in: body
+          description: new transaction detail
+          required: true
+          schema:
+            $ref: '#/definitions/Transaction'
+      produces:
+       - application/json
+      responses:
+        '200':
+          description: Successful new details of the transaction
+          schema:
+            $ref: '#/definitions/ApiResponsePost' 
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error        
           
   /user/account/{id}/transactions/{transactionId}:  
     get:
@@ -214,46 +248,7 @@ paths:
         '500':
           description: Internal Server Error      
           
-    post:       
-      security:
-        - Bearer: []
-      tags:
-        - Transactions Module 
-      summary: API User transactions
-      description: API add a single user transaction
-      parameters:
-        - in: header
-          name: Authorization
-          description: Attach Bearer JTW token
-          type: string
-          required: true
-        - name: id
-          in: path
-          description: User's account id
-          type: integer
-          required: true
-        - name: transactionId
-          in: path
-          description: User's transactions id
-          type: integer
-          required: true
-        - name: body
-          in: body
-          description: new transaction detail
-          required: true
-          schema:
-            $ref: '#/definitions/Transaction'
-      produces:
-       - application/json
-      responses:
-        '200':
-          description: Successful new details of the transaction
-          schema:
-            $ref: '#/definitions/ApiResponsePost' 
-        '400':
-          description: Invalid Fields
-        '500':
-          description: Internal Server Error       
+     
      
      
     put:       
@@ -303,8 +298,8 @@ paths:
         - Bearer: []
       tags:
         - Transactions Module 
-      summary: Detail Transaction
-      description: Api transaction details (route to delete user transaction details)
+      summary: API User transactions
+      description: API delete a single user transaction
       parameters:
         - in: header
           name: Authorization
@@ -426,10 +421,7 @@ definitions:
               type: number
             Type:
               type: string
-            Category:
-              type: string
-            Notes:
-              type: string
+
         
   Transaction:
     type: object
