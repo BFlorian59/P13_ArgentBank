@@ -56,7 +56,9 @@ Once you run the `populate-db` script, you should have two users in your databas
 - Password: `password456`
 
 
+# link to website : [(https://argent-bank-eta.vercel.app/)]((https://argent-bank-eta.vercel.app/))
 
+#OR
 
 # Getting Started with Create React App
 
@@ -73,3 +75,4 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
+
