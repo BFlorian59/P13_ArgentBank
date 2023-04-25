@@ -21,10 +21,8 @@ mongo --version
 
 ### Instructions
 
-1. Fork this repo
-1. Clone the repo onto your computer
-1. Open a terminal window in the cloned project
-1. Run the following commands:
+1. Open a terminal window in the backend folder in the project
+2. Run the following commands:
 
 ```bash
 # Install dependencies
